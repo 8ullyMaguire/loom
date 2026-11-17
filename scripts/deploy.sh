@@ -55,6 +55,7 @@ WantedBy=default.target
 UNIT
 systemctl --user daemon-reload
 systemctl --user enable --now loom.service
+systemctl --user restart loom.service
 healthy=0
 for i in $(seq 1 30); do
   if curl -fsS "http://127.0.0.1:$app_port/api/v1/capabilities" >/dev/null 2>&1; then healthy=1; break; fi
