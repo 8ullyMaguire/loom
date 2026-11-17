@@ -30,3 +30,4 @@ No user-facing surface built yet. Every new surface must record REUSE / ADAPT / 
 - Row 5 REUSE axum/utoipa typed-handler pattern and loom-store bundle functions; ADAPT the estate error-body shape; BUILD the share page and OpenAPI document. First user-facing surface proven with a real HTTP request.
 - Row 6 REUSE loom-core confidence aggregate and the sunset helper; ADAPT the `X-Visitor-Key` anonymous identity pattern; BUILD tag vote/aggregate routes. No new table (schema already had `tag_votes`).
 - Row 8 REUSE the generators' public `/feeds.json` and their recorded JSON as fixtures; ADAPT upsert + retire to `feeds`; BUILD a GET-only ingest module. Added migration 0002 for `window_hours` after a real 42703 failure.
+- Row 7 REUSE live `feeds` and `tag_votes` rows plus the existing typed error shape; ADAPT keyset paging; BUILD faceted search, deterministic ordering and a measured hidden-gems tail. No gravity exposed.

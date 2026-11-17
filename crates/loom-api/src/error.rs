@@ -68,3 +68,9 @@ impl From<loom_store::Error> for ApiError {
         }
     }
 }
+
+impl From<sqlx::Error> for ApiError {
+    fn from(e: sqlx::Error) -> Self {
+        Self::from(loom_store::Error::Database(e))
+    }
+}

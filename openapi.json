@@ -131,6 +131,46 @@
         }
       }
     },
+    "/api/v1/hidden-gems": {
+      "get": {
+        "tags": [
+          "crate::routes::search"
+        ],
+        "operationId": "hidden_gems",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HiddenGemsDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/search": {
+      "get": {
+        "tags": [
+          "crate::routes::search"
+        ],
+        "operationId": "search",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchPageDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/tags": {
       "get": {
         "tags": [
@@ -288,6 +328,77 @@
           },
           "message": {
             "type": "string"
+          }
+        }
+      },
+      "HiddenGemsDto": {
+        "type": "object",
+        "required": [
+          "impression_share",
+          "items"
+        ],
+        "properties": {
+          "impression_share": {
+            "type": "number",
+            "format": "double"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SearchHitDto"
+            }
+          }
+        }
+      },
+      "SearchHitDto": {
+        "type": "object",
+        "required": [
+          "uri",
+          "name",
+          "description",
+          "source",
+          "ranking_mode",
+          "score"
+        ],
+        "properties": {
+          "description": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "ranking_mode": {
+            "type": "string"
+          },
+          "score": {
+            "type": "number",
+            "format": "double"
+          },
+          "source": {
+            "type": "string"
+          },
+          "uri": {
+            "type": "string"
+          }
+        }
+      },
+      "SearchPageDto": {
+        "type": "object",
+        "required": [
+          "items"
+        ],
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SearchHitDto"
+            }
+          },
+          "next_cursor": {
+            "type": [
+              "string",
+              "null"
+            ]
           }
         }
       },

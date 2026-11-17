@@ -13,7 +13,9 @@ use crate::routes::bundles::{
         crate::routes::bundles::get,
         crate::routes::bundles::edit,
         crate::routes::tags::vote,
-        crate::routes::tags::aggregate
+        crate::routes::tags::aggregate,
+        crate::routes::search::search,
+        crate::routes::search::hidden_gems
     ),
     components(schemas(
         BundleDto,

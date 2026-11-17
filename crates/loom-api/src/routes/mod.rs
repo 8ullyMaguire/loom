@@ -1,4 +1,5 @@
 pub mod bundles;
+pub mod search;
 pub mod tags;
 
 use axum::http::HeaderMap;
@@ -17,6 +18,8 @@ pub fn router() -> Router<AppState> {
         )
         .route("/b/{id}", get(bundles::share))
         .route("/api/v1/tags", post(tags::vote).get(tags::aggregate))
+        .route("/api/v1/search", get(search::search))
+        .route("/api/v1/hidden-gems", get(search::hidden_gems))
 }
 
 pub(crate) async fn sunset_active(state: &AppState) -> Result<bool, ApiError> {

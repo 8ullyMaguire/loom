@@ -51,3 +51,5 @@ pub enum Error {
 }
 
 pub mod tags;
+
+pub mod search;
