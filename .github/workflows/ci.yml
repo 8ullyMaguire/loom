@@ -1,0 +1,15 @@
+name: gate
+on: [push, pull_request]
+jobs:
+  gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with: { components: rustfmt, clippy }
+      - uses: actions/setup-node@v4
+        with: { node-version: '22' }
+      - name: frontend dependencies
+        run: cd frontend && npm ci --no-audit --no-fund
+      - name: full gate
+        run: bash scripts/gate.sh all

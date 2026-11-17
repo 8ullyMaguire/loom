@@ -1,3 +1,5 @@
+const OPENAPI_VERSION: &str = include_str!("../../../openapi.version");
+
 use utoipa::OpenApi;
 
 use crate::error::ErrorBody;
@@ -26,7 +28,7 @@ use crate::routes::bundles::{
         EditBundleRequest,
         ErrorBody
     )),
-    info(title = "Loom API", version = "0.1.0")
+    info(title = "Loom API", version = OPENAPI_VERSION)
 )]
 pub struct ApiDoc;
 
