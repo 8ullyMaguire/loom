@@ -18,7 +18,7 @@ One row per task. A row closes on its own gate output, pasted in the commit mess
 | 11 | CLI and TUI | CLOSED | exit_codes 1 passed (0..5 plus scripted TUI); 404->1 mutant reddened it; tui-session.sh added; capabilities now reports tui=true |
 | 12 | SvelteKit PWA with real HTML | CLOSED | blank-canary PASS (3039 bytes, exact marker, heading, recommendation strip); service worker + manifest wired; exact-marker mutant reddened the canary |
 | 13 | gate, CI, OpenAPI diff | CLOSED | `bash scripts/gate.sh all` -> GATE_ALL_EXIT=0 across 12 stages; CI workflow runs the same gate; OpenAPI contract mutant reddened the check |
-| 14 | deploy on thinkcentre | OPEN | — |
+| 14 | deploy on thinkcentre | CLOSED locally | backup PASS, 26 feeds ingested, app on 8079, nginx 8082, live HTML/API/share/PWA verified; public tunnel hostname still needs a Cloudflare dashboard change |
 
 ## Census log
 
