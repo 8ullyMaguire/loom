@@ -112,6 +112,9 @@ printf '%s' "$html" | grep -q 'Worth a look'
 curl -fsS "http://127.0.0.1:$web_port/api/v1/capabilities" >/dev/null
 curl -fsS "http://127.0.0.1:$web_port/manifest.webmanifest" >/dev/null
 echo "ingest: refresh live feed lists"
+set -a
+. "$env_file"
+set +a
 "$HOME/.local/bin/loom-server" --ingest
 echo "live: PASS (HTML + API + PWA manifest on $web_port; app on $app_port)"
 echo "deploy: $sha"
