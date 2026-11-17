@@ -85,9 +85,13 @@ server {
         proxy_pass http://127.0.0.1:$app_port;
         proxy_set_header Accept-Encoding "";
     }
+    location = / {
+        root $HOME/.local/share/loom/build;
+        try_files /index.html =404;
+    }
     location / {
         root $HOME/.local/share/loom/build;
-        try_files \\\$uri \\\$uri.html /200.html;
+        try_files \\\$uri \\\$uri.html \\\$uri/index.html /200.html;
     }
     location = /200.html {
         root $HOME/.local/share/loom/build;
@@ -103,8 +107,11 @@ echo "verify: live paths"
 curl -fsS "http://127.0.0.1:$app_port/api/v1/capabilities" | python3 -m json.tool | head -8
 html=$(curl -fsS "http://127.0.0.1:$web_port/")
 printf '%s' "$html" | grep -q 'data-loom-ssr="1"'
+printf '%s' "$html" | grep -q '<h1'
 printf '%s' "$html" | grep -q 'Worth a look'
 curl -fsS "http://127.0.0.1:$web_port/api/v1/capabilities" >/dev/null
 curl -fsS "http://127.0.0.1:$web_port/manifest.webmanifest" >/dev/null
+echo "ingest: refresh live feed lists"
+"$HOME/.local/bin/loom-server" --ingest
 echo "live: PASS (HTML + API + PWA manifest on $web_port; app on $app_port)"
 echo "deploy: $sha"

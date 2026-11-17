@@ -16,6 +16,14 @@ async fn main() -> anyhow::Result<()> {
         .unwrap_or_else(|_| "postgres://darkhold:darkhold@127.0.0.1:55433/loom_test".into());
     let db = Database::connect(&dsn).await?;
     db.migrate().await?;
+    if args.iter().any(|a| a == "--ingest") {
+        let client = reqwest::Client::new();
+        let (leftist, bnwo) = loom_api::ingest::refresh(&client, db.pool()).await?;
+        println!("ingest: leftist +{} ~{} retired {}, bnwo +{} ~{} retired {}",
+            leftist.inserted, leftist.updated, leftist.retired,
+            bnwo.inserted, bnwo.updated, bnwo.retired);
+        return Ok(());
+    }
     let state = AppState::new(db);
     let listener = TcpListener::bind("127.0.0.1:8079").await?;
     serve(listener, loom_api::router(state)).await?;
