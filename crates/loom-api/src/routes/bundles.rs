@@ -1,7 +1,7 @@
 //! Bundle HTTP surface. All responses are typed; no Json<Value> anywhere.
 
 use axum::extract::{Path, Query, State};
-use axum::http::{header, HeaderMap, StatusCode};
+use axum::http::{HeaderMap, StatusCode};
 use axum::response::{Html, IntoResponse, Response};
 use axum::Json;
 use serde::{Deserialize, Serialize};
@@ -41,34 +41,6 @@ pub struct ListQuery {
     pub limit: Option<i64>,
 }
 
-fn visitor_key(headers: &HeaderMap) -> String {
-    headers
-        .get("x-visitor-key")
-        .and_then(|v| v.to_str().ok())
-        .unwrap_or("anonymous")
-        .to_string()
-}
-
-async fn sunset_active(state: &AppState) -> Result<bool, ApiError> {
-    let n: (i64,) = sqlx::query_as(
-        "select count(*) from reports where created_at > now() - interval '30 days'",
-    )
-    .fetch_one(state.db.pool())
-    .await
-    .map_err(|e| ApiError::from(loom_store::Error::Database(e)))?;
-    Ok(loom_core::sunset::should_close(
-        n.0 as u64,
-        state.sunset_threshold,
-    ))
-}
-
-async fn allow_write(state: &AppState, headers: &HeaderMap) -> Result<(), ApiError> {
-    if sunset_active(state).await? && headers.get(header::AUTHORIZATION).is_none() {
-        return Err(ApiError::auth("identity required after the sunset trigger"));
-    }
-    Ok(())
-}
-
 #[utoipa::path(
     post,
     path = "/api/v1/bundles",
@@ -80,10 +52,10 @@ pub async fn create(
     headers: HeaderMap,
     Json(body): Json<CreateBundleRequest>,
 ) -> Result<Response, ApiError> {
-    allow_write(&state, &headers).await?;
+    super::allow_write(&state, &headers).await?;
     let created = loom_store::bundles::create(
         state.db.pool(),
-        &visitor_key(&headers),
+        &super::visitor_key(&headers),
         &body.name,
         &body.description,
         body.feeds,

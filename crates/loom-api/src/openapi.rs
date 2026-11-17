@@ -11,7 +11,9 @@ use crate::routes::bundles::{
         crate::routes::bundles::create,
         crate::routes::bundles::list,
         crate::routes::bundles::get,
-        crate::routes::bundles::edit
+        crate::routes::bundles::edit,
+        crate::routes::tags::vote,
+        crate::routes::tags::aggregate
     ),
     components(schemas(
         BundleDto,

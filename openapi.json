@@ -130,6 +130,54 @@
           }
         }
       }
+    },
+    "/api/v1/tags": {
+      "get": {
+        "tags": [
+          "crate::routes::tags"
+        ],
+        "operationId": "aggregate",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TagAggregateResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "crate::routes::tags"
+        ],
+        "operationId": "vote",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TagVoteRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TagAggregateResponse"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -239,6 +287,63 @@
             "type": "string"
           },
           "message": {
+            "type": "string"
+          }
+        }
+      },
+      "TagAggregateResponse": {
+        "type": "object",
+        "required": [
+          "status",
+          "n"
+        ],
+        "properties": {
+          "ci_high": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "format": "double"
+          },
+          "ci_low": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "format": "double"
+          },
+          "mean": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "format": "double"
+          },
+          "n": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "status": {
+            "type": "string"
+          }
+        }
+      },
+      "TagVoteRequest": {
+        "type": "object",
+        "required": [
+          "feed",
+          "tag",
+          "confidence"
+        ],
+        "properties": {
+          "confidence": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "feed": {
+            "type": "string"
+          },
+          "tag": {
             "type": "string"
           }
         }

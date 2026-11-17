@@ -10,7 +10,7 @@ One row per task. A row closes on its own gate output, pasted in the commit mess
 | 3 | pure domain rules (loom-core) | CLOSED | fc8f780: 4 tests green (RED observed first) |
 | 4 | bundle store + anonymous create + edit token | CLOSED | 2 tests green: order kept, wrong/rotated token refused; API routes still row 5 |
 | 5 | typed API, OpenAPI, bundle routes | CLOSED | bundle_share 1 passed; openapi 1 passed; /b/{id} renders one Bluesky link per feed; generated paths 2, schemas 5 |
-| 6 | tag votes and confidence floor | OPEN | — |
+| 6 | tag votes and confidence floor | CLOSED | tag_aggregate 1 passed; RED was 404; mutant floor=4 reddened it, restored |
 | 7 | search, facets, cursor, hidden gems | OPEN | — |
 | 8 | read-only ingest from both generators | OPEN | — |
 | 9 | recommendations + hidden gravity gates | OPEN | — |
@@ -28,3 +28,4 @@ No user-facing surface built yet. Every new surface must record REUSE / ADAPT / 
 - Row 2 REUSE the existing lh-pg-test Postgres cluster (new dedicated database); ADAPT scratch-schema test pattern; BUILD the nine-table schema.
 - Row 4 REUSE loom-core Bundle validation and token generation; ADAPT the estate idempotency convention; BUILD bundle persistence and token rotation.
 - Row 5 REUSE axum/utoipa typed-handler pattern and loom-store bundle functions; ADAPT the estate error-body shape; BUILD the share page and OpenAPI document. First user-facing surface proven with a real HTTP request.
+- Row 6 REUSE loom-core confidence aggregate and the sunset helper; ADAPT the `X-Visitor-Key` anonymous identity pattern; BUILD tag vote/aggregate routes. No new table (schema already had `tag_votes`).

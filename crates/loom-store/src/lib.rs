@@ -46,3 +46,5 @@ pub enum Error {
     #[error("authentication required")]
     Auth,
 }
+
+pub mod tags;
