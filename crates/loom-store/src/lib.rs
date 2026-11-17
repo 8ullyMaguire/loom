@@ -29,6 +29,9 @@ impl Database {
         sqlx::raw_sql(include_str!("../migrations/0001_baseline.sql"))
             .execute(&self.pool)
             .await?;
+        sqlx::raw_sql(include_str!("../migrations/0002_feed_window.sql"))
+            .execute(&self.pool)
+            .await?;
         Ok(())
     }
 }

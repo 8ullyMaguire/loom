@@ -12,7 +12,7 @@ One row per task. A row closes on its own gate output, pasted in the commit mess
 | 5 | typed API, OpenAPI, bundle routes | CLOSED | bundle_share 1 passed; openapi 1 passed; /b/{id} renders one Bluesky link per feed; generated paths 2, schemas 5 |
 | 6 | tag votes and confidence floor | CLOSED | tag_aggregate 1 passed; RED was 404; mutant floor=4 reddened it, restored |
 | 7 | search, facets, cursor, hidden gems | OPEN | — |
-| 8 | read-only ingest from both generators | OPEN | — |
+| 8 | read-only ingest from both generators | CLOSED | ingest 2 passed; recorded 14+12 live feeds, 26 indexed; PK conflict idempotent; 1 retired on removal; 0 PDS write verbs |
 | 9 | recommendations + hidden gravity gates | OPEN | — |
 | 10 | sunset rule and capability document | OPEN | — |
 | 11 | CLI and TUI | OPEN | — |
@@ -29,3 +29,4 @@ No user-facing surface built yet. Every new surface must record REUSE / ADAPT / 
 - Row 4 REUSE loom-core Bundle validation and token generation; ADAPT the estate idempotency convention; BUILD bundle persistence and token rotation.
 - Row 5 REUSE axum/utoipa typed-handler pattern and loom-store bundle functions; ADAPT the estate error-body shape; BUILD the share page and OpenAPI document. First user-facing surface proven with a real HTTP request.
 - Row 6 REUSE loom-core confidence aggregate and the sunset helper; ADAPT the `X-Visitor-Key` anonymous identity pattern; BUILD tag vote/aggregate routes. No new table (schema already had `tag_votes`).
+- Row 8 REUSE the generators' public `/feeds.json` and their recorded JSON as fixtures; ADAPT upsert + retire to `feeds`; BUILD a GET-only ingest module. Added migration 0002 for `window_hours` after a real 42703 failure.

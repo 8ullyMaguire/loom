@@ -4,6 +4,7 @@ use rand::RngCore;
 use sqlx::{Executor, PgPool, Pool, Postgres};
 
 pub struct Fixture {
+    #[allow(dead_code)]
     pub base: String,
     #[allow(dead_code)]
     pub pool: PgPool,
