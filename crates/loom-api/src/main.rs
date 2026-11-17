@@ -15,6 +15,7 @@ async fn main() -> anyhow::Result<()> {
         .or_else(|_| std::env::var("DATABASE_URL"))
         .unwrap_or_else(|_| "postgres://darkhold:darkhold@127.0.0.1:55433/loom_test".into());
     let db = Database::connect(&dsn).await?;
+    db.migrate().await?;
     let state = AppState::new(db);
     let listener = TcpListener::bind("127.0.0.1:8079").await?;
     serve(listener, loom_api::router(state)).await?;
