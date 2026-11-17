@@ -2,6 +2,11 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 case "${1:-repo}" in
+  frontend)
+    bash scripts/sync-chrome.sh >/dev/null
+    (cd frontend && node node_modules/vite/bin/vite.js build >/dev/null 2>&1)
+    bash scripts/blank-canary.sh
+    ;;
   ramp)
     cargo test -q -p loom-api --test gravity_gates ramp -- --exact --nocapture >/dev/null
     echo "ramp: PASS"

@@ -1,0 +1,12 @@
+body { margin: 0; background: var(--surface-0); color: var(--text-1);
+  font-family: var(--p-font-text); line-height: var(--p-leading-base); }
+main { max-width: var(--p-measure-wide); margin: 0 auto; padding: var(--p-space-8) var(--p-space-4); }
+a { color: var(--accent); }
+h1 { font-family: var(--p-font-display); font-size: var(--p-step-8); line-height: var(--p-leading-tight); }
+.card { background: var(--surface-1); border: 1px solid var(--border-1); border-radius: var(--p-radius-md);
+  padding: var(--p-space-4); margin: var(--p-space-3) 0; }
+.muted { color: var(--text-3); }
+form { display: flex; flex-wrap: wrap; gap: var(--p-space-2); margin: var(--p-space-4) 0; }
+input, button { font: inherit; min-height: var(--p-target-min); padding: var(--p-space-2);
+  border-radius: var(--p-radius-sm); border: 1px solid var(--border-2); }
+button { background: var(--accent); color: var(--text-inverse); cursor: pointer; }
