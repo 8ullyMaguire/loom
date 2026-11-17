@@ -16,3 +16,10 @@ ratatui.workspace = true
 crossterm.workspace = true
 anyhow.workspace = true
 uuid.workspace = true
+
+[[bin]]
+name = "loomctl"
+path = "src/main.rs"
+
+[dev-dependencies]
+axum.workspace = true

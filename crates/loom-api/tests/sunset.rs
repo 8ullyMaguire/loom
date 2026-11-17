@@ -65,6 +65,7 @@ async fn sunset_closes_anonymous_creation_but_not_existing_edit_tokens() {
     assert_eq!(after["threshold"], 20);
     assert_eq!(after["tags"], true);
     assert_eq!(after["recommendations"], true);
+    assert_eq!(after["tui"], true, "the CLI/TUI row shipped");
 
     let patch = client
         .patch(format!("{}/api/v1/bundles/{id}", f.base))

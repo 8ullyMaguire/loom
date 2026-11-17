@@ -14,7 +14,6 @@ pub struct CapabilitiesDto {
     pub search: bool,
     pub recommendations: bool,
     pub hidden_gems: bool,
-    /// False until the CLI/TUI row ships; the document never claims unbuilt features.
     pub tui: bool,
     pub reports_30d: i64,
     pub threshold: u64,
@@ -39,7 +38,7 @@ pub async fn capabilities(
         search: true,
         recommendations: true,
         hidden_gems: true,
-        tui: false,
+        tui: true,
         reports_30d,
         threshold: state.sunset_threshold,
     }))

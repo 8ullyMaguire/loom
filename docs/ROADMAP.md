@@ -15,7 +15,7 @@ One row per task. A row closes on its own gate output, pasted in the commit mess
 | 8 | read-only ingest from both generators | CLOSED | ingest 2 passed; recorded 14+12 live feeds, 26 indexed; PK conflict idempotent; 1 retired on removal; 0 PDS write verbs |
 | 9 | recommendations + hidden gravity gates | OPEN | — |
 | 10 | sunset rule and capability document | CLOSED | sunset 1 passed; 19 reports -> 201, 20 -> 401 auth_required, old token PATCH -> 200; `>=` mutant reddened it |
-| 11 | CLI and TUI | OPEN | — |
+| 11 | CLI and TUI | CLOSED | exit_codes 1 passed (0..5 plus scripted TUI); 404->1 mutant reddened it; tui-session.sh added; capabilities now reports tui=true |
 | 12 | SvelteKit PWA with real HTML | OPEN | — |
 | 13 | gate, CI, OpenAPI diff | OPEN | — |
 | 14 | deploy on thinkcentre | OPEN | — |
@@ -32,4 +32,5 @@ No user-facing surface built yet. Every new surface must record REUSE / ADAPT / 
 - Row 8 REUSE the generators' public `/feeds.json` and their recorded JSON as fixtures; ADAPT upsert + retire to `feeds`; BUILD a GET-only ingest module. Added migration 0002 for `window_hours` after a real 42703 failure.
 - Row 7 REUSE live `feeds` and `tag_votes` rows plus the existing typed error shape; ADAPT keyset paging; BUILD faceted search, deterministic ordering and a measured hidden-gems tail. No gravity exposed.
 - Row 9 REUSE loom-core `ramp`/`score`, live tag votes and search results; ADAPT per-surface ceilings from `config.toml`; BUILD the recommendations route, `docs/ROUTE_TABLE.md` and the two gates. The secrecy gate ignores publisher-written `name`/`description`, since user copy is not our mechanism.
-- Row 10 REUSE loom-core `should_close` and the existing typed error; ADAPT the report count query; BUILD the capability document. `tui` reports false until row 11 ships rather than claiming unbuilt features.
+- Row 10 REUSE loom-core `should_close` and the existing typed error; ADAPT the report count query; BUILD the capability document. `tui` reported false until row 11 shipped, now true.
+- Row 11 REUSE clap/ratatui/crossterm already in the workspace and the estate exit-code convention (0/1/2/3/4/5); ADAPT the typed API into JSON stdout; BUILD loomctl, scripted TUI and tui-session.sh.

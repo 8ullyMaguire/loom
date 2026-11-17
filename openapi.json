@@ -332,8 +332,7 @@
             "minimum": 0
           },
           "tui": {
-            "type": "boolean",
-            "description": "False until the CLI/TUI row ships; the document never claims unbuilt features."
+            "type": "boolean"
           }
         }
       },
