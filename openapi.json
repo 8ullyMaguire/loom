@@ -131,6 +131,26 @@
         }
       }
     },
+    "/api/v1/capabilities": {
+      "get": {
+        "tags": [
+          "crate::routes::capabilities"
+        ],
+        "operationId": "capabilities",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CapabilitiesDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/hidden-gems": {
       "get": {
         "tags": [
@@ -271,6 +291,49 @@
           "version": {
             "type": "integer",
             "format": "int32"
+          }
+        }
+      },
+      "CapabilitiesDto": {
+        "type": "object",
+        "required": [
+          "bundle_create_anonymous",
+          "tags",
+          "search",
+          "recommendations",
+          "hidden_gems",
+          "tui",
+          "reports_30d",
+          "threshold"
+        ],
+        "properties": {
+          "bundle_create_anonymous": {
+            "type": "boolean"
+          },
+          "hidden_gems": {
+            "type": "boolean"
+          },
+          "recommendations": {
+            "type": "boolean"
+          },
+          "reports_30d": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "search": {
+            "type": "boolean"
+          },
+          "tags": {
+            "type": "boolean"
+          },
+          "threshold": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0
+          },
+          "tui": {
+            "type": "boolean",
+            "description": "False until the CLI/TUI row ships; the document never claims unbuilt features."
           }
         }
       },

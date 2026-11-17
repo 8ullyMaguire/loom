@@ -1,4 +1,5 @@
 pub mod bundles;
+pub mod capabilities;
 pub mod recommendations;
 pub mod search;
 pub mod tags;
@@ -25,6 +26,7 @@ pub fn router() -> Router<AppState> {
             "/api/v1/recommendations",
             get(recommendations::recommendations),
         )
+        .route("/api/v1/capabilities", get(capabilities::capabilities))
 }
 
 pub(crate) async fn sunset_active(state: &AppState) -> Result<bool, ApiError> {

@@ -137,7 +137,7 @@ async fn secrecy() {
         }
         checked += 1;
     }
-    assert_eq!(checked, 5, "every row of ROUTE_TABLE.md must be checked");
+    assert_eq!(checked, 6, "every row of ROUTE_TABLE.md must be checked");
     println!("secrecy: PASS ({checked} paths)");
     f.server.abort();
 }
