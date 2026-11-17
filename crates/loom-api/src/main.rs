@@ -18,10 +18,18 @@ async fn main() -> anyhow::Result<()> {
     db.migrate().await?;
     if args.iter().any(|a| a == "--ingest") {
         let client = reqwest::Client::new();
-        let (leftist, bnwo) = loom_api::ingest::refresh(&client, db.pool()).await?;
-        println!("ingest: leftist +{} ~{} retired {}, bnwo +{} ~{} retired {}",
-            leftist.inserted, leftist.updated, leftist.retired,
-            bnwo.inserted, bnwo.updated, bnwo.retired);
+        let (leftist, bnwo) = loom_api::ingest::refresh(&client, db.pool())
+            .await
+            .map_err(|e| anyhow::anyhow!(e.to_string()))?;
+        println!(
+            "ingest: leftist +{} ~{} retired {}, bnwo +{} ~{} retired {}",
+            leftist.inserted,
+            leftist.updated,
+            leftist.retired,
+            bnwo.inserted,
+            bnwo.updated,
+            bnwo.retired
+        );
         return Ok(());
     }
     let state = AppState::new(db);
