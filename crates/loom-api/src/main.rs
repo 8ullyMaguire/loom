@@ -12,6 +12,7 @@ async fn main() -> anyhow::Result<()> {
         return Ok(());
     }
     let dsn = std::env::var("LOOM_DSN")
+        .or_else(|_| std::env::var("DATABASE_URL"))
         .unwrap_or_else(|_| "postgres://darkhold:darkhold@127.0.0.1:55433/loom_test".into());
     let db = Database::connect(&dsn).await?;
     let state = AppState::new(db);

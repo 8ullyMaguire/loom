@@ -1,8 +1,8 @@
 <script>
   import { page } from '$app/stores';
   import { getJSON } from '$lib/api.js';
-  let bundle = null;
-  let error = '';
+  let bundle = $state(null);
+  let error = $state('');
   $effect(() => {
     const id = $page.params.id;
     getJSON(`/api/v1/bundles/${id}`).then((b) => { bundle = b; }).catch((e) => { error = String(e); });
