@@ -151,6 +151,26 @@
         }
       }
     },
+    "/api/v1/recommendations": {
+      "get": {
+        "tags": [
+          "crate::routes::recommendations"
+        ],
+        "operationId": "recommendations",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RecommendationPageDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/search": {
       "get": {
         "tags": [
@@ -347,6 +367,43 @@
             "items": {
               "$ref": "#/components/schemas/SearchHitDto"
             }
+          }
+        }
+      },
+      "RecommendationDto": {
+        "type": "object",
+        "required": [
+          "uri",
+          "name",
+          "why"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "uri": {
+            "type": "string"
+          },
+          "why": {
+            "type": "string"
+          }
+        }
+      },
+      "RecommendationPageDto": {
+        "type": "object",
+        "required": [
+          "surface",
+          "items"
+        ],
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RecommendationDto"
+            }
+          },
+          "surface": {
+            "type": "string"
           }
         }
       },

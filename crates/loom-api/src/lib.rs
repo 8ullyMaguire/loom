@@ -1,5 +1,6 @@
 //! Typed HTTP API for Loom.
 
+pub mod config;
 pub mod error;
 pub mod ingest;
 pub mod openapi;
